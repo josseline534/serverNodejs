@@ -1,0 +1,27 @@
+{
+  "name": "servernodejs",
+  "version": "1.0.0",
+  "description": "chat con un servidor node js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josseline534/serverNodejs.git"
+  },
+  "keywords": [
+    "chat",
+    "server",
+    "nodejs"
+  ],
+  "author": "josseline sanchez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/josseline534/serverNodejs/issues"
+  },
+  "homepage": "https://github.com/josseline534/serverNodejs#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,9 +1,7 @@
 # Creacion del servidor con Nodejs
 
 ## comando npm init
-
-**llenar:**
-
+* **llenar opciones:**
     * package name: (servernodejs) 
     * version: (1.0.0)
     * description: chat con un servidor node js
@@ -39,11 +37,9 @@ Se utiliza para peticiones, metodos, cabeceras
     ```app.use(router)```
 
 **Accion por cada metodo**
-```
     router.get('/', (req, res){
         //codigo
     })
-    ```
 
 Primer parametro: /ruta 
 
@@ -53,4 +49,40 @@ Segundo párametro: función
 Sirve para no tener que estar levantando el servidor por cada cambio
 **linea de comando: **
 nodemon server
+## Recibir informacion desde el cliente
+#### Body
+Instalar body parse.
+Modulo de express que permite trabajar de manera sencilla con el body de la petición.
+
+        npm install body-parser
+
+**Dependencia de body**
+    
+    const body = require('body-parser')
+
+**Uso**
+
+    app.use(body)
+
+    app.use(body.json())
+
+Se debe colocar despues del punto el tipo de archivo a recibir
+
+**Mostrar contenido**
+
+    console.log(req.body)
+
+**Enviar respuesta**
+
+Convertir segun el tipo
+*   json
+    * res.send(`Mensajes ${JSON.stringify(req.body)}` )
+* text
+    * res.send(`Mensajes ${req.body}` )
+#### Query
+req.query
+
+**Envio**
+
+http://localhost:3000/message?name=josseline&age=24
 

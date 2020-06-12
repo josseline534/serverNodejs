@@ -8,6 +8,7 @@ app.use(body.json())
 app.use(body.urlencoded({extended: false}))
 app.use(body.text())
 app.use(router)
+app.use('/app', express.static('public'))
 router.get('/message',(req, res)=>{
     console.log(req.headers)
     res.header({

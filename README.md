@@ -124,3 +124,8 @@ res.status(#estado).send([{error:'', body:'Creador correctamente'}])
     * Llamar función
 
         response.success(req, res, 'Listar mensajes', 201)
+* * *
+## ARCHIVOS ESTÁTICOS
+app.use('/app', express.static('public'))
+
+Colocar los archivos estáticos en la carpeta public

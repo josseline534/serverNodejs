@@ -9,7 +9,7 @@ router.get('/message',(req, res)=>{
     res.send('Listar mensajes')
 })
 router.post('/message',(req, res)=>{
-    res.send('mensaje añadido')
+    res.send('mensaje añadido correctamente')
 })
 
 app.use('/',(req, res)=>{

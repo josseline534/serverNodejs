@@ -47,7 +47,8 @@ Segundo párametro: función
 * * *
 ## INSTALACION DE NODEMON
 Sirve para no tener que estar levantando el servidor por cada cambio
-**linea de comando: **
+
+**linea de comando:**
 nodemon server
 ## Recibir informacion desde el cliente
 #### Body
@@ -129,3 +130,8 @@ res.status(#estado).send([{error:'', body:'Creador correctamente'}])
 app.use('/app', express.static('public'))
 
 Colocar los archivos estáticos en la carpeta public
+* * *
+## ERRORES
+Enviar detalles de los errores y hacer console.log
+
+    console.log(`[RESPONSE] ${details}`)

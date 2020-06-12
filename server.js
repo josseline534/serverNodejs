@@ -19,7 +19,7 @@ router.get('/message',(req, res)=>{
 })
 router.post('/message',(req, res)=>{
     if(req.query.error == 'ok'){
-        response.error(req, res, `Error al enviar Mensaje ${req.body}`, 401)
+        response.error(req, res, `Error al enviar Mensaje ${req.body}`, 401, 'Es una simulacion de error')
     }else{
         response.success(req, res, `Mensajes ${req.body}`, 201)
     }

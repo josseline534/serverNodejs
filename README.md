@@ -94,3 +94,12 @@ req.headers
     res.header({
         "name-header" : "value"
     })
+* * *
+## TIPOS DE RESPUESTA CON ESTADO
+res.status(#estado)
+#### vacia
+res.status(#estado).send()
+#### objeto
+res.status(#estado).send({error:'', body:'Creador correctamente'})
+#### array
+res.status(#estado).send([{error:'', body:'Creador correctamente'}])

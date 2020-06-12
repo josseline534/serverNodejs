@@ -18,7 +18,11 @@ router.get('/message',(req, res)=>{
 router.post('/message',(req, res)=>{
     console.log(req.query)
     console.log(req.body)
-    res.send(`Mensajes ${req.body}` )
+    //res.send(`Mensajes ${req.body}` )
+    res.status(201).send([{
+        error:'', 
+        body:`Mensajes ${req.body}`
+    }])
 })
 
 app.use('/',(req, res)=>{

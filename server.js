@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const body = require('body-parser')
+const response = require('./network/response')
 
 app.use(body.json())
 app.use(body.urlencoded({extended: false}))
@@ -13,16 +14,14 @@ router.get('/message',(req, res)=>{
         "custom-header" : "valor personalizado"
     })
     //res.send(`Mensajes ${JSON.stringify(req.body)}` )
-    res.send(`Listar mensajes` )
+    response.success(req, res, 'Listar mensajes', 201)
 })
 router.post('/message',(req, res)=>{
-    console.log(req.query)
-    console.log(req.body)
-    //res.send(`Mensajes ${req.body}` )
-    res.status(201).send([{
-        error:'', 
-        body:`Mensajes ${req.body}`
-    }])
+    if(req.query.error == 'ok'){
+        response.error(req, res, `Error al enviar Mensaje ${req.body}`, 401)
+    }else{
+        response.success(req, res, `Mensajes ${req.body}`, 201)
+    }
 })
 
 app.use('/',(req, res)=>{

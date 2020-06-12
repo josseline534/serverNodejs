@@ -103,3 +103,24 @@ res.status(#estado).send()
 res.status(#estado).send({error:'', body:'Creador correctamente'})
 #### array
 res.status(#estado).send([{error:'', body:'Creador correctamente'}])
+* * *
+## RESPUESTA COHERENTES
+* Pasos
+    * Crear modulo para respuesta 
+        * Carpeta: network
+        * Archivo: response.js
+    * Exportar funciones de **response.js**
+        * Codigo
+
+        exports.nombre = (req, res, message, status) =>{
+            res.status(status || 200).send({
+                error:'', 
+                body: message
+            })
+        }
+    * Requerirlo en server.js
+
+        const response = require('./network/response')
+    * Llamar función
+
+        response.success(req, res, 'Listar mensajes', 201)

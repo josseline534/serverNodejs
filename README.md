@@ -85,4 +85,12 @@ req.query
 **Envio**
 
 http://localhost:3000/message?name=josseline&age=24
+* * *
+## LEER CABECERAS
 
+req.headers
+
+**Crear cabeceras:** 
+    res.header({
+        "name-header" : "value"
+    })

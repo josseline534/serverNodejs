@@ -135,3 +135,32 @@ Colocar los archivos estáticos en la carpeta public
 Enviar detalles de los errores y hacer console.log
 
     console.log(`[RESPONSE] ${details}`)
+* * *
+## RUTAS CONTROLADORES BASES DE DATOS
+### RUTAS Y CAPAS
+* Crear la siguiente ruta
+    * components
+        * messages
+            * network.js
+    * network
+        * routes.js
+
+**network.js** 
+
+Requerir express, crear ruta express, iimportar response, llevar los metodos y exportar la ruta
+
+**routes.js** 
+
+Requerir express, 
+requerir message de network.js (funcion) para que se pueda realizar o ejecutar la funcin segun la ruta, 
+crear funcion y exportarla.
+        const routes = server =>{
+            server.use('/ruta', (funcion))
+        }
+
+**server.js**
+
+Requerir router de routes.js y enviarle por parametro app
+
+
+

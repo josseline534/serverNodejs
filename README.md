@@ -28,18 +28,24 @@ creacion del archivo json
 
 **Utilizar ruta express**
 
-    ```const router = express.Router()```
+    ```javascript
+    const router = express.Router()
+    ```
 
 Se utiliza para peticiones, metodos, cabeceras
 
 **Usar ruta**
 
-    ```app.use(router)```
+    ```javascript
+    app.use(router)
+    ```
 
 **Accion por cada metodo**
+```javascript
     router.get('/', (req, res){
         //codigo
     })
+```
 
 Primer parametro: /ruta 
 
@@ -58,30 +64,39 @@ Modulo de express que permite trabajar de manera sencilla con el body de la peti
         npm install body-parser
 
 **Dependencia de body**
-    
+    ```javascript
     const body = require('body-parser')
+    ```
 
 **Uso**
-
+```javascript
     app.use(body)
 
     app.use(body.json())
+```
 
 Se debe colocar despues del punto el tipo de archivo a recibir
 
 **Mostrar contenido**
-
+```javascript
     console.log(req.body)
+```
 
 **Enviar respuesta**
 
 Convertir segun el tipo
 *   json
-    * res.send(`Mensajes ${JSON.stringify(req.body)}` )
+    * ```javascript
+    res.send(`Mensajes ${JSON.stringify(req.body)}` )
+    ```
 * text
-    * res.send(`Mensajes ${req.body}` )
+    * ```javascript
+    res.send(`Mensajes ${req.body}` )
+    ```
 #### Query
-req.query
+```javascript
+    req.query
+```
 
 **Envio**
 
@@ -92,9 +107,11 @@ http://localhost:3000/message?name=josseline&age=24
 req.headers
 
 **Crear cabeceras:** 
+```javascript
     res.header({
         "name-header" : "value"
     })
+```
 * * *
 ## TIPOS DE RESPUESTA CON ESTADO
 res.status(#estado)
@@ -112,13 +129,14 @@ res.status(#estado).send([{error:'', body:'Creador correctamente'}])
         * Archivo: response.js
     * Exportar funciones de **response.js**
         * Codigo
-
+```javascript
         exports.nombre = (req, res, message, status) =>{
             res.status(status || 200).send({
                 error:'', 
                 body: message
             })
         }
+```
     * Requerirlo en server.js
 
         const response = require('./network/response')
@@ -154,9 +172,11 @@ Requerir express, crear ruta express, iimportar response, llevar los metodos y e
 Requerir express, 
 requerir message de network.js (funcion) para que se pueda realizar o ejecutar la funcin segun la ruta, 
 crear funcion y exportarla.
+```javascript
         const routes = server =>{
             server.use('/ruta', (funcion))
         }
+```
 
 **server.js**
 
@@ -172,6 +192,7 @@ Requerir router de routes.js y enviarle por parametro app
 Archivo que se encarga de definir funciones para realizar las actividades del negocio.
 
 Crear funcion
+```javascript
     const addMessage = (user, message)=>{
         return new Promise((resolve, reject)=>{
             const fullMessage = {
@@ -188,28 +209,32 @@ Crear funcion
             }
         })
     }
+```
 
 Utilizar promesas new Promise((resolve, reject)=>{})
 * resolve (verdadero)
 * reject (false)
 
 Crear objeto segun la necesidad
+```javascript
      const fullMessage = {
                 user ,
                 message ,
                 date : new Date()
             }
+```
 
 new Date() para la fecha
 
 Condiciones
+```javascript
     if(!user || !message){
         console.log(`[CONTROLLER: ERROR] datos incompletos`)
         reject('Los datos enviados son incorrectos')
     }else{
         resolve(fullMessage)
     }
-
+``` 
 reject('Los datos enviados son incorrectos')
 envia mensaje por falso
 
@@ -221,7 +246,7 @@ envia mensaje por verdadero
 Requerir controller.js
 
 Metodo post
-
+```javascript
     controller.addMessage(req.body.user, req.body.message)
         .then(fullMessage => {
             response.success(req, res, `Mensajes ${JSON.stringify(fullMessage)}`, 201)
@@ -229,7 +254,7 @@ Metodo post
         .catch(e => {
             response.error(req, res, `Información invalida`, 400, 'Error en el controlador')
         })
-
+```
 controller.addMessage(req.body.user, req.body.message)
 envia usuario y mensaje
 
@@ -245,6 +270,71 @@ Ejecutar promesa
     .catch(e => {
         response.error(req, res, `Información invalida`, 400, 'Error en el controlador')
     })
+* * *
+## ALMACENANDO INFORMACION
+* carpeta message
+    * store.js
+Lógica de almacenamiento de información.
+
+Crear un moc (Falsear una BD o servicio para validar)
+
+Crear un arreglo 
+
+    let listMessage = []
+
+Crear funciones
+
+Guardar los mensajes en el arreglo
+
+    const addMessage = message =>{
+        listMessage.push(message)
+    }
+
+Devolver el arreglo con los mensajes
+
+    const getMessage = ()=>{
+         return listMessage
+    }
+
+Exportar los modulos
+
+    module.exports={
+        add : addMessage,
+        list : getMessage
+    }
+
+**controller.js**
+
+Añadir los mensajes utilizando el metodo exportado add (addMessage)
+    
+    store.add(fullMessage)
+
+Crear funcion para obtener los mensajes utilizando promesa donde envie o retorne la lista de mensajes
+```javascript
+    const getMessage = () =>{
+        return new Promise ((resolve, reject) => {
+            resolve(store.list())
+        })
+    }
+```
+
+Y exportar la funcion para utilizarla en el archivo network
+
+**network.js**
+
+Método **GET**
+
+Ejecuta la promesa
+```javascript
+    controller.getMessage()
+    .then(listMessage =>{
+        response.success(req, res, `Mensajes ${JSON.stringify(listMessage)}`, 201)
+    })
+    .catch(e => {
+        response.error(req, res, `Unexpected error`, 400, e)
+    })
+```
+
 
 
 

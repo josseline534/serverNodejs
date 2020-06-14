@@ -162,5 +162,90 @@ crear funcion y exportarla.
 
 Requerir router de routes.js y enviarle por parametro app
 
+* * *
+## CONTROLADORES
+* Ruta
+    * components
+        * message
+            * controller.js
+**controller.js** 
+Archivo que se encarga de definir funciones para realizar las actividades del negocio.
+
+Crear funcion
+    const addMessage = (user, message)=>{
+        return new Promise((resolve, reject)=>{
+            const fullMessage = {
+                user ,
+                message ,
+                date : new Date()
+            }
+            console.log(fullMessage)
+            if(!user || !message){
+                console.log(`[CONTROLLER: ERROR] datos incompletos`)
+                reject('Los datos enviados son incorrectos')
+            }else{
+                resolve(fullMessage)
+            }
+        })
+    }
+
+Utilizar promesas new Promise((resolve, reject)=>{})
+* resolve (verdadero)
+* reject (false)
+
+Crear objeto segun la necesidad
+     const fullMessage = {
+                user ,
+                message ,
+                date : new Date()
+            }
+
+new Date() para la fecha
+
+Condiciones
+    if(!user || !message){
+        console.log(`[CONTROLLER: ERROR] datos incompletos`)
+        reject('Los datos enviados son incorrectos')
+    }else{
+        resolve(fullMessage)
+    }
+
+reject('Los datos enviados son incorrectos')
+envia mensaje por falso
+
+resolve(fullMessage)
+envia mensaje por verdadero
+
+**network.js**
+
+Requerir controller.js
+
+Metodo post
+
+    controller.addMessage(req.body.user, req.body.message)
+        .then(fullMessage => {
+            response.success(req, res, `Mensajes ${JSON.stringify(fullMessage)}`, 201)
+        })
+        .catch(e => {
+            response.error(req, res, `Información invalida`, 400, 'Error en el controlador')
+        })
+
+controller.addMessage(req.body.user, req.body.message)
+envia usuario y mensaje
+
+Ejecutar promesa
+
+* Si cumple y se resuelve
+
+    .then(fullMessage => {
+        response.success(req, res, `Mensajes ${JSON.stringify(fullMessage)}`, 201)
+    })
+* Si ocurre un error
+
+    .catch(e => {
+        response.error(req, res, `Información invalida`, 400, 'Error en el controlador')
+    })
+
+
 
 

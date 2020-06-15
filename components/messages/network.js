@@ -21,4 +21,15 @@ router.post('/',(req, res)=>{
             response.error(req, res, `Información invalida`, 400, 'Error en el controlador')
         })
 })
+router.patch('/:id', (req, res) => {
+    console.log(`ID: ${req.params.id}`)
+    console.log(`SMS: ${req.body.message}`)
+    controller.updateMessage(req.params.id, req.body.message)
+    .then(infoMessage => {
+        response.success(req, res, `Mensaje Actualizado ${JSON.stringify(infoMessage)}`, 200)
+    })
+    .catch(e => {
+        response.error(req, res, `Error inesperado`, 500, e)
+    })
+})
 module.exports=router

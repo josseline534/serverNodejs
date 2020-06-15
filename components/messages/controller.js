@@ -20,7 +20,19 @@ const getMessage = () =>{
         resolve(store.list())
     })
 }
+const updateMessage = (id, message) => {
+    console.log(`SMS: ${message}`)
+    return new Promise (async (resolve, reject) => {
+        if (!id || !message)
+            reject ('Datos incompletos')
+        else{
+            const result = await store.update(id, message)
+            resolve(result)
+        }
+    })
+}
 module.exports={
     addMessage,
-    getMessage
+    getMessage,
+    updateMessage
 }

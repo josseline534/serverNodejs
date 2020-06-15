@@ -420,7 +420,43 @@ Se hace uso de asincronia para esta petición (async y await)
     return message
 ```
 Refrescar la bd para ver los datos guardados
+* * *
+## ACTUALIZAR DATOS
+store.js
 
+crear funcion para actualizar y exportarla, debe ser asincrona  y filtrar por el id
+```javascript
+    const updateMessage = async (id, message) => {
+        const foundMessage = await model.findOne({
+            _id:id
+        })
+        foundMessage.message= message
+        const newMessage = await foundMessage.save()
+        return newMessage
+    }
+```
+controller.js
+Crear funcion de actualizar y usando promesas y asincronia para enviar los datos al store.
+```javascript
+    const updateMessage = (id, message) => {
+        console.log(`SMS: ${message}`)
+        return new Promise (async (resolve, reject) => {
+            if (!id || !message)
+                reject ('Datos incompletos')
+            else{
+                const result = await store.update(id, message)
+                resolve(result)
+            }
+        })
+    }
+```
+network.js
+
+Crear una nueva ruta para la actualizacion,
+enviar el id que se va a actualizar con el metodo path,
+para enviar un parametro en la ruta colocar '/:id'.
+
+Utilizar update del controller y pasarle los parametros necesarios y usar las promesas
 
 
 

@@ -458,6 +458,32 @@ para enviar un parametro en la ruta colocar '/:id'.
 
 Utilizar update del controller y pasarle los parametros necesarios y usar las promesas
 
+* * *
+## CONSULTAR DATOS
+network.js
 
+Metodo get
+Crear una constante que guarde la informacion del filtro.
+Y enviarlo al controller
 
+controller.js
+
+Recibir y enviar la informacion del filtro
+
+store.js
+
+Crear una variable para que guarde el nombre del usuario como objeto,
+verificar si el filtro contiene iformacion o esta vacio, en caso de contener se envia 
+el filtro en la variable.
+```javascript
+    if(filterUser != null){
+            filter={
+                user:filterUser
+            }
+        }
+```
+Y enviar la variable en el find del model
+```javascript
+    const message = await model.find(filter)
+```
 

@@ -4,7 +4,8 @@ const response = require('../../network/response')
 const controller = require('./controller')
 
 router.get('/',(req, res)=>{
-    controller.getMessage()
+    const filterMessage = req.query.user || null
+    controller.getMessage(filterMessage)
     .then(listMessage =>{
         response.success(req, res, `Mensajes ${JSON.stringify(listMessage)}`, 201)
     })

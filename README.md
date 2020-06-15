@@ -334,6 +334,92 @@ Ejecuta la promesa
         response.error(req, res, `Unexpected error`, 400, e)
     })
 ```
+* * * 
+## CREAR Y CONFIGURAR BD MONGODB
+* Pasos
+    * Ingresar a mongodb.com
+    * Iniciar sesion
+    * Realizar configuracion,
+    seleccionar gratis
+    * Crear un cluster
+    * Collections
+        * Crear Bd
+            * Crear Collections
+    * Conectar
+        * Crear Usuario y Contraseña
+        * Ingresar dirección ip propia
+    * Metodo
+        * 2do Aplication
+            * Nodejs
+            * Copiar cadena de conexión en el store.js
+            * Modificar el password y el nombre de la bd
+* * *
+### UTILIZAR MONGOOSE
+model.js
+
+Importar librería
+```javascript
+    const mongoose = require('mongoose')
+```
+Requerir el esquema para poder defir las claves que va a contener
+```javascript
+    const Schema = mongoose.Schema
+```
+Realizar una instancia de schema para definir la estructura de la colleccion
+```javascript
+    const mySchema = new Schema ({
+    user:String,
+    message:{
+        type:String,
+        required:true
+    },
+    date: Date
+})
+```
+Crear funcion para crear el modelo ('collection', schema) y exportarla
+```javascript
+    const model = mongoose.model('message', mySchema)
+```
+store.js
+
+Importa librería de mongoose
+
+Realizar coneccion usando promesa con el objeto global
+```javascript
+    db.connect(
+        'cadena de conxion',
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+```
+useNewUrlParser: true,
+useUnifiedTopology: true.
+Sirven para no tener problemas con actualizaciones
+* * *
+## ALMACENAR E INSERTAR DATOS
+store.js
+
+Requerir model.js 
+
+funcion addMessage
+
+Crear una instancia de model y enviar el mensaje, usando .save() para guardarlo en la bd
+mongo
+```javascript
+    const myMessage = new model (message)
+    myMessage.save()
+```
+* * *
+## LEER U OBTENER DATOS
+store.js
+
+Se hace uso de asincronia para esta petición (async y await)
+```javascript
+    const message = await model.find()
+    return message
+```
+Refrescar la bd para ver los datos guardados
 
 
 

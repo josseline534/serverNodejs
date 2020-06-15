@@ -15,7 +15,7 @@ router.get('/',(req, res)=>{
 router.post('/',(req, res)=>{
     controller.addMessage(req.body.user, req.body.message)
         .then(fullMessage => {
-            response.success(req, res, `Mensajes ${JSON.stringify(fullMessage)}`, 201)
+            response.success(req, res,`Mensajes ${JSON.stringify(fullMessage)}`, 201)
         })
         .catch(e => {
             response.error(req, res, `Información invalida`, 400, 'Error en el controlador')

@@ -496,4 +496,22 @@ de la bd
         _id : id
     })
 ```
+* * *
+## GESTIONAR PETICIONES DESDE LA API
+Crear un nuevo archivo que guarde la coneccion de la bd y que sea asincrona 
 
+```javascript
+    const db = require('mongoose')
+
+    db.Promise = global.Promise
+    const connect = async (url) => {
+        await db.connect( url,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            })
+            console.log('[BD]Conectado con exito')
+    }
+    module.exports = connect
+```
+Pasarle como parametro la url desde el server.js

@@ -486,4 +486,14 @@ Y enviar la variable en el find del model
 ```javascript
     const message = await model.find(filter)
 ```
+* * *
+## ELIMINAR MENSAJES POR ID
+store.js
+se debe retornar el resultado del id para esto se debe usar deleteOne del model que es que tiene la estructura 
+de la bd
+```javascript
+    return model.deleteOne ({
+        _id : id
+    })
+```
 

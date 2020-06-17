@@ -597,3 +597,25 @@ Modificar la estructura de fullmessage y aumentar file con la ruta guardada
 **model.js**
 
 Añadir a la estructura file que sea tipo string
+* * *
+## CREAR SERVIDOR WEBSOCKET
+Instalar socket.io
+npm install socket.io
+
+**socket.js**
+
+Importa socket.io,
+crear objeto vacio,
+crear funcion que reciba el server como parametro
+y exportarlo
+**server.js**
+
+importar portocolo http de la siguiente forma
+```javascript
+    const server = require('http').Server(app)
+```
+Realizar la conexion con el metodo importado del socket y escuchar la conexion desde es server
+```javascript
+    socket.connect(server)
+    server.listen(3000)
+```    

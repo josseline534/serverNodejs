@@ -4,14 +4,23 @@ const response = require('../../network/response')
 const controller = require('./controller')
 const multer  = require('multer')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/files/');
+    },
+    filename: function (req, file, cb) {
+        const [name, extension] = file.originalname.split('.');
+        cb(null, `${name}-${Date.now()}.${extension}`)
+    }
+  })
 const upload = multer(
     {   
-        dest: 'public/files/' 
+        storage: storage 
     }
 )
 
 router.get('/',(req, res)=>{
-    const filterMessage = req.query.user || null
+    const filterMessage = req.query.chat || null
     controller.getMessage(filterMessage)
     .then(listMessage =>{
         response.success(req, res, `Mensajes ${JSON.stringify(listMessage)}`, 201)

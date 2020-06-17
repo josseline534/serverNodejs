@@ -14,6 +14,7 @@ const mySchema = new Schema ({
         type:String,
         required:true
     },
+    file: String,
     date: Date
 })
 

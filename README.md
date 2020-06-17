@@ -515,3 +515,85 @@ Crear un nuevo archivo que guarde la coneccion de la bd y que sea asincrona
     module.exports = connect
 ```
 Pasarle como parametro la url desde el server.js
+* * *
+## CREACION DE ENTIDADES
+Crear entidad chat y user usando los mismos componentes
+* Componentes
+    * network.js
+    * controller.js
+    * store.js
+    * model.js
+Realizar las respectivas lógica
+
+**model.js**
+
+Para hacer referencia al id de otra tabla colocar
+
+    type: Schema.ObjectId
+
+Para referenciar la tabla
+
+    ref: "nombreTabla"
+```javascript
+    const mySchema = new Schema ({
+        users:[{
+            type : Schema.ObjectId,
+            ref :  "user"
+        }]
+    })
+```
+Añadir las rutas en router.js con sus respectivas importaciones.
+```javascript
+    const routes = server =>{
+        server.use('/message', messages)
+        server.use('/user', user)
+        server.use('/chat', chat)
+    }
+```
+* **Peticiones**
+    * **User**
+        * name: "nombre"
+    * **Chat**
+        * users: ["iExistenteUser0", "iExistenteUser1"]
+    * **Message**
+        * chat: "idExistenteChat"
+        * user: "iExistenteUser"
+        * message: "mensaje"
+* * * 
+## GUARDAR ARCHIVO EN EL SERVIDOR
+Instalar multer
+
+**network.js**
++ Pasos
+    * Requerirlo
+    * Uso:
+        ```javascript
+        const upload = multer(
+            {   
+                dest: 'public/files/' 
+            }
+        )
+        ```
+        Crear ruta donde se van a guardar los archivos
+    * post:
+    ```javascript
+        upload.single('file')
+    ```
+    Recibirlo como parametro y enviar req.file al controller
+
+**controller.js**
+
+Recibir como parametro file (puede o no venir),
+crear una variable que guarde la ruta en caso de que venga.
+
+file.filename  nos da el nombre del archivo
+```javascript
+    let fileUrl=''
+        if ( file)
+            fileUrl = `http://localhost:3000/app/files/${file.filename}`
+```
+Modificar la estructura de fullmessage y aumentar file con la ruta guardada
+ 
+**model.js**
+
+Añadir a la estructura file que sea tipo string

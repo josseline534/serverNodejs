@@ -9,7 +9,7 @@ const addMessage = (chat, user, message, file) => {
       }
       let fileUrl=''
       if ( file)
-        fileUrl = `http://localhost:3000/message/app/files/${file.filename}`
+        fileUrl = `http://localhost:3000/app/files/${file.filename}`
       const fullMessage = {
         chat,
         user,

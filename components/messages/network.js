@@ -20,7 +20,9 @@ const upload = multer(
 )
 
 router.get('/',(req, res)=>{
-    const filterMessage = req.query.chat || null
+    const filterMessage = req.query.chat|| null
+    console.log(req.query.chat);
+    
     controller.getMessage(filterMessage)
     .then(listMessage =>{
         response.success(req, res, `Mensajes ${JSON.stringify(listMessage)}`, 201)

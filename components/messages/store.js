@@ -13,15 +13,16 @@ const getMessage = async (filterChat) =>{
                 chat: filterChat 
             }
         }
-        Model.find(filter)
-          .populate("user")
+        model.find(filter)
+          .populate("chat")
           .exec((error, populated) => {
             if (error) {
               reject(error);
+              return false
             }
             resolve(populated);
-          });
-      });
+          })
+      })
 }
 const updateMessage = async (id, message) => {
     const foundMessage = await model.findOne({
